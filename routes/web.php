@@ -18,21 +18,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', 'AdminController@dashboard');
-    Route::get('section', 'SectionController@dashboard')->name('section');
-    Route::get('/index', 'SectionController@index')->name('section');
-    Route::resource('section', 'SectionController');
-    Route::resource('subject', 'SubjectController');
-    Route::resource('topic', 'TopicController');
-    Route::resource('assignsubjects', 'AssignSubjectController');
-    Route::resource('subtopic', 'SubTopicController');
-    Route::resource('question', 'QuestionController');
-    Route::resource('assignsubtopic', 'AssignSubTopicController');
-    Route::resource('assigntopics', 'AssignTopicController');
-    Route::get('crop-image', 'ImageController@index');
-    Route::get('getsubjects', 'SubjectController@getSubjects')->name('getsubjects');
-    Route::get('gettopics', 'TopicController@getTopics')->name('gettopics');
-    Route::get('getsubtopics', 'SubTopicController@getSubTopics')->name('getsubtopics');
-    Route::post('crop-image', ['as'=>'upload.image','uses'=>'ImageController@uploadImage']);
+    Route::resource('country', 'CountryController');
 
 });
 Auth::routes();

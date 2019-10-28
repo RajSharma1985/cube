@@ -17,7 +17,7 @@
         @endif
         <!-- Main content -->
         <section class="content">
-           <a href="{{ URL::to('section/create') }}" class="btn btn-primary btn-lg pull-right">Add Section</a>
+           <a href="{{ URL::to('country/create') }}" class="btn btn-primary btn-lg pull-right">Add Country</a>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
@@ -26,21 +26,26 @@
                         <thead>
                         <tr>
                           <th>SNo.</th>
-                          <th>Section Name</th>
+                          <th>Country Name</th>
                           <th>Status</th>
                           <th>Edit</th>
                           <th>Delete</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($section as  $indexKey => $item)    
+                        @foreach($country as  $indexKey => $item)    
                         <tr>
                           <td>{{$indexKey + 1}}</td>
-                          <td>{{$item->section_name}}
+                          <td>{{$item->country}}
                           </td>
-                          <td>{{ ($item->status) ? 'Active' : 'Deactive' }}</td>
-                          <td> <a href="{{ route('section.edit', ['id' => $item->_id]) }}" class="btn btn-success btn-md">Edit</a></td>
-                          <td><form action="{{ url('/section', ['id' => $item->id]) }}" method="post">
+                          <td>
+                                <div class="checkbox">
+                                        <input type="checkbox" checked data-toggle="toggle">
+                                      </div>  
+                            </td>
+                          <td> 
+                            <a href="{{ route('country.edit', ['id' => $item->_id]) }}" class="btn btn-success btn-md">Edit</a></td>
+                          <td><form action="{{ url('/country', ['id' => $item->id]) }}" method="post">
                                   <input class="btn btn-danger btn-md" type="submit" value="Delete" />
                                   @method('delete')
                                   @csrf
@@ -49,7 +54,7 @@
                         @endforeach
                         </tbody>
                       </table>
-                            {{ $section->links() }}
+                            {{ $country->links() }}
                     </div>
                     </div>
                 </div>

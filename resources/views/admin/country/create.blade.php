@@ -10,26 +10,18 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Edit Section</h3>
+                        <h3 class="box-title">Add Country</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form action="{{ route('section.update',$section->_id) }}" method="POST">
-                        @method('PATCH')
+                    <form action="{{ route('country.store') }}" method="POST">
                         @csrf
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Section Name English <span style="color: red">*</span></label>
-                                <input type="text" value="{{$section->section_lang['en_us']}}" class="form-control required"  name="section_name_en_us" placeholder="Enter Section Name In English">
-                                @if ($errors->has('section_name_en_us'))
-                                    <div class="error">{{ $errors->first('section_name_en_us') }}</div>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Section Name Hindi <span style="color: red">*</span></label>
-                                <input type="text" value="{{$section->section_lang['hindi']}}" class="form-control required"  name="section_name_hindi" placeholder="Enter Section Name In Hindi">
-                                @if ($errors->has('section_name_hindi'))
-                                    <div class="error">{{ $errors->first('section_name_hindi') }}</div>
+                                <label for="exampleInputEmail1">Country <span style="color: red">*</span></label>
+                                <input type="text" class="form-control required"  name="country" placeholder="Enter Country">
+                                @if ($errors->has('country'))
+                                    <div class="error">{{ $errors->first('country') }}</div>
                                 @endif
                             </div>
                             <div class="form-group">
@@ -38,7 +30,7 @@
                                 <select class="form-control" name="status">
                                     <option value="">Select Status</option>
                                     @foreach($status as $key=>$value)
-                                        <option value="{{$key}}" {{ ( $key == $section->status) ? 'selected' : '' }}>{{$value}}</option>
+                                        <option value="{{$key}}">{{$value}}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('status'))
@@ -51,7 +43,7 @@
 
                         <div class="box-footer">
                         <a href="{{ url()->previous() }}" class="btn btn-danger">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>

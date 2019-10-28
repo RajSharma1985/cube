@@ -1,11 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Helper\Constant;
-use App\Model\AssignSubjects;
-use App\Model\Section;
-use App\Model\Subjects;
+use App\Model\Country;
 use Illuminate\Http\Request;
 use View;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +10,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Session;
 
-class SectionController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,10 +20,10 @@ class SectionController extends Controller
     public function index()
     {
         // get all the nerds
-        $section = Section::paginate(10);
+        $country = Country::paginate(10);
 
         // load the view and pass the nerds
-        return view('admin.section.index', compact('section'));
+        return view('admin.country.index', compact('country'));
     }
 
     /**
@@ -37,7 +34,7 @@ class SectionController extends Controller
     public function create()
     {
         $status = Constant::$status;
-        return View::make('admin.section.create',compact('status'));
+        return View::make('admin.country.create',compact('status'));
     }
 
     /**
@@ -52,32 +49,25 @@ class SectionController extends Controller
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
-            'section_name_en_us' => 'required|unique:section|max:255',
-            'section_name_hindi' => 'required|unique:section|max:255',
+            'country' => 'required|unique:country|max:255',
             'status' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('section/create')
+            return Redirect::to('country/create')
                 ->withErrors($validator)
-                ->withInput(Input::except('section_name'));
+                ->withInput(Input::except('country'));
         } else {
             // store
-            $section = new Section;
-            $sctionName = ['en_us'=>Input::get('section_name_en_us'),'hindi'=>Input::get('section_name_hindi')];
-            $section->section_lang = $sctionName;
-            $section->section_name = Input::get('section_name_en_us');
-            $section->status = Input::get('status');
-            $section->save();
-
-            $assignSubjects = new AssignSubjects;
-            $assignSubjects->section_id = $section->_id;
-            $assignSubjects->save();
+            $country = new Country;
+            $country->country = Input::get('country');
+            $country->status = Input::get('status');
+            $country->save();
             // redirect
-            Session::flash('message', 'Successfully created section!');
-            return Redirect::to('section');
+            Session::flash('message', 'Successfully created country!');
+            return Redirect::to('country');
         }
     }
 
@@ -107,9 +97,9 @@ class SectionController extends Controller
     {
         // get the nerd
         
-        $section = Section::find($id);
+        $country = Country::find($id);
         $status = Constant::$status;
-        return View::make('admin.section.edit',compact('status','section'));
+        return View::make('admin.country.edit',compact('status','country'));
     }
 
     /**
@@ -123,30 +113,28 @@ class SectionController extends Controller
     {
 
         $rules = array(
-            'section_name_en_us' => 'required|unique:section|max:255',
-            'section_name_hindi' => 'required|unique:section|max:255',
+            'country' => 'required',
             'status' => 'required',
         );
         $validator = Validator::make(Input::all(), $rules);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to(route('section.edit', ['id' => $id]))
+            return Redirect::to(route('country.edit', ['id' => $id]))
                 ->withErrors($validator)
-                ->withInput(Input::except('section_name'));
+                ->withInput(Input::except('country'));
         } else {
             // store
-            $section = Section::where('_id',$id)->first();
-            if(!empty($section)){
+            $country = Country::where('_id',$id)->first();
+            if(!empty($country)){
 
-                $sctionName = ['en_us'=>Input::get('section_name_en_us'),'hindi'=>Input::get('section_name_hindi')];
-                $section->section_lang = $sctionName;
-                $section->section_name = Input::get('section_name_en_us');
-                $section->status = Input::get('status');
-                $section->save();
+                
+                $country->country = Input::get('country');
+                $country->status = Input::get('status');
+                $country->save();
                 // redirect
-                Session::flash('message', 'Successfully updated section!');
-                return Redirect::to('section');
+                Session::flash('message', 'Successfully updated country!');
+                return Redirect::to('country');
             }
         }
     }
@@ -159,14 +147,13 @@ class SectionController extends Controller
      */
     public function destroy($id)
     {
-        $section = Section::findOrFail($id);
-        if(!empty($section))
+        $country = Country::findOrFail($id);
+        if(!empty($country))
         {
-           $section->delete();
-           AssignSubjects::where('section_id',$section->_id)->delete();
+           $country->delete();
         }
-        Session::flash('message', 'Section successfully deleted!');
-        return Redirect::to('section');
+        Session::flash('message', 'Country successfully deleted!');
+        return Redirect::to('country');
 
 
     }
