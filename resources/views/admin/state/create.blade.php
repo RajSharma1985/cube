@@ -10,18 +10,31 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Add Country</h3>
+                        <h3 class="box-title">Add State</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form action="{{ route('country.store') }}" method="POST">
+                    <form action="{{ route('state.store') }}" method="POST">
                         @csrf
                         <div class="box-body">
+                                <div class="form-group">
+                                        <label for="exampleInputEmail1">Country <span style="color: red">*</span></label>
+                                        {{--<input type="text" class="form-control required"  name="section_name_en_us" placeholder="Enter Section Name In English">--}}
+                                        <select class="form-control" name="country">
+                                            <option value="">Select Country</option>
+                                            @foreach($country as $key=>$value)
+                                                <option value="{{$value->id}}">{{$value->country}}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('country'))
+                                            <div class="error">{{ $errors->first('country') }}</div>
+                                        @endif
+                                    </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Country <span style="color: red">*</span></label>
-                                <input type="text" class="form-control required"  name="country" placeholder="Enter Country Name">
-                                @if ($errors->has('country'))
-                                    <div class="error">{{ $errors->first('country') }}</div>
+                                <label for="exampleInputEmail1">State <span style="color: red">*</span></label>
+                                <input type="text" class="form-control required"  name="state" placeholder="Enter State Name">
+                                @if ($errors->has('state'))
+                                    <div class="error">{{ $errors->first('state') }}</div>
                                 @endif
                             </div>
                             <div class="form-group">

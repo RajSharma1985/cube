@@ -19,6 +19,8 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', 'AdminController@dashboard');
     Route::resource('country', 'CountryController');
+    Route::resource('state', 'StateController');
+    Route::resource('city', 'CityController');
 
 });
 Auth::routes();

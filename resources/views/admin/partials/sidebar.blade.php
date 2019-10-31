@@ -25,7 +25,9 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="{{ URL::to('country') }}"><i class="fa fa-circle-o"></i> Country</a></li>
-                    
+                    <li class="active"><a href="{{ URL::to('state') }}"><i class="fa fa-circle-o"></i> State</a></li>
+                    <li class="active"><a href="{{ URL::to('city') }}"><i class="fa fa-circle-o"></i> City</a></li>
+                    <li class="active"><a href="{{ URL::to('cube') }}"><i class="fa fa-circle-o"></i> Cube</a></li>
                 </ul>
             </li>
 
